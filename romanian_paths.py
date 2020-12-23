@@ -25,10 +25,12 @@ GRAPH = {\
 
 def dfs_paths(source, destination, path=None):
     """All possible paths from source to destination using depth-first search
+
     :param source: Source city name
     :param destination: Destination city name
     :param path: Current traversed path (Default value = None)
     :yields: All possible paths from source to destination
+
     """
     if path is None:
         path = [source]
@@ -39,9 +41,11 @@ def dfs_paths(source, destination, path=None):
 
 def ucs(source, destination):
     """Cheapest path from source to destination using uniform cost search
+
     :param source: Source city name
     :param destination: Destination city name
     :returns: Cost and path for cheapest traversal
+
     """
     from queue import PriorityQueue
     priority_queue, visited = PriorityQueue(), {}
@@ -59,9 +63,11 @@ def ucs(source, destination):
 
 def a_star(source, destination):
     """Optimal path from source to destination using straight line distance heuristic
+
     :param source: Source city name
     :param destination: Destination city name
     :returns: Heuristic value, cost and path for optimal traversal
+
     """
     # HERE THE STRAIGHT LINE DISTANCE VALUES ARE IN REFERENCE TO BUCHAREST AS THE DESTINATION
     straight_line = {\

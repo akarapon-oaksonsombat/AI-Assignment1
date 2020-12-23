@@ -41,6 +41,7 @@ class Puzzle(object):
         """Parser of command line arguments to get requested search alogrithm
         
         :returns: Arguments object contianing all command line arguments
+
         """
         argparser = argparse.ArgumentParser(description='Puzzle Solver')
         argparser.add_argument(
@@ -81,7 +82,9 @@ class Puzzle(object):
     @staticmethod
     def display_board(board):
         """Displays the current state of the board
+
         :param board: 2D list depicting the current board
+
         """
         output_file = open('out.txt', 'a')
         output_file.write('------' * SIZE + '\n')
@@ -94,8 +97,10 @@ class Puzzle(object):
     @staticmethod
     def get_inversion_count(arr):
         """Returns number of inversions in an array
+
         :param arr: Generic array (list)
         :returns: Number of inversions in the array
+
         """
         return sum(1 for i in range(len(arr)) for j in range(i + 1, len(arr))\
                 if arr[j] and arr[i] and arr[i] > arr[j])
@@ -103,8 +108,10 @@ class Puzzle(object):
     @staticmethod
     def get_blank_position(state):
         """Returns the blank position in the board
+
         :param state: 2D list depicting the current board
         :returns: Tuple depicting coordinates of the first blank position in the board
+
         """
         for row_index, row in enumerate(state):
             if 0 in row:
@@ -113,9 +120,11 @@ class Puzzle(object):
     @staticmethod
     def move(direction, state):
         """Moves from one state to next state
+
         :param direction: Direction in which the blank space should move
         :param state: 2D list depicting the current board
         :returns: 2D list depicting the new state of the board
+
         """
         blank = Puzzle.get_blank_position(state)
         new_state = deepcopy(state)
@@ -130,17 +139,21 @@ class Puzzle(object):
     @staticmethod
     def get_state_tuple(state):
         """Returns state in tuple form
+
         :param state: 2D list depicting the current board
         :returns: Tuple depicting the current board
+
         """
         return tuple([tuple(row) for row in state])
 
     @staticmethod
     def expand_node(node, visited):
         """Returns a list of expanded nodes
+
         :param node: Current node object being scanned
         :param visited: List of nodes previously visited
         :returns: List of expanded nodes currently and previously visited
+
         """
         expanded_nodes = []
         for direction in DIRECTIONS:
@@ -175,7 +188,9 @@ class Puzzle(object):
 
     def dfs(self, depth=10):
         """Traversal from start to goal of puzzle using depth-first search
+
         :param depth: Depth limit for DFS (Default value = 10)
+
         """
         depth_limit = depth
         stack = [Node(self.start, None, None, 0, 0)]
@@ -202,23 +217,29 @@ class Puzzle(object):
 
     def heuristic_mismatch(self, state):
         """heuristic function based on the number of mismatched tiles
+
         :param state: 2D list depicting the current board
         :returns: Heuristic value of mismatches of current state from goal state
+
         """
         return sum(1 for i in range(SIZE)\
                 for j in range(SIZE) if state[i][j] != self.goal[i][j])
 
     def get_best_first_node(self, x):
         """Create node for best-first search priority queue
+
         :param x: Node object being scanned
         :returns: Heuristic value of mismatches of state of current node from goal state
+
         """
         return self.heuristic_mismatch(x.state)
 
     def get_a_star_node(self, x):
         """Create node for a-star search priority queue
+
         :param x: 2D list depicting the current board
         :returns: Sum of depth of the current state and heuristic value of mismatches of state of current node from goal state
+
         """
         return x.depth + self.heuristic_mismatch(x.state)
 
